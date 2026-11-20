@@ -10,7 +10,7 @@
     // Lead form: Web3Forms (free, 250 a month). Paste the access key emailed to indy@lemonlolly.com.au.
     // The key is safe to have in public code. Until it's set, leads aren't sent but booking still works.
     ENDPOINT: 'https://api.web3forms.com/submit',
-    WEB3FORMS_KEY: '',
+    WEB3FORMS_KEY: '728bb4d3-8ec7-4479-907a-9410512764f3',
     // Calendly event for the 30-minute diagnosis call (7 to 10:30am Adelaide = US afternoons).
     BOOKING_URL: 'https://calendly.com/lemonlolly-au/lemonlolly-diagnosis-call',
     ADS_ID: 'AW-18373661137',
