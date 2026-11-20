@@ -5,7 +5,7 @@ Static HTML, hosted on Vercel, source of truth on GitHub. Push to `main` = publi
 
 - `index.html` — landing page with the check-up
 - `app.js` — check-up engine. Everything you'd change is in `CONFIG` at the top:
-  Formspree endpoint, Calendly link, Google Ads conversion labels, revenue floor
+  Web3Forms access key, Calendly link, Google Ads conversion labels, revenue floor
 - `guarantee.html` — guarantee terms (/guarantee). Draft until reviewed by a US lawyer
 - `privacy.html` — privacy notice (/privacy)
 - `styles.css` — lemonlolly brand system v1.0

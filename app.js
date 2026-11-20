@@ -7,8 +7,10 @@
 
   /* ===== CONFIG: change these, nothing else needs touching ===== */
   var CONFIG = {
-    // Lead form. Same Formspree form as lemonlolly.com.au; allow lemonlolly.vip in its settings.
-    ENDPOINT: 'https://formspree.io/f/mkolepkn',
+    // Lead form: Web3Forms (free, 250 a month). Paste the access key emailed to hello@lemonlolly.com.au.
+    // The key is safe to have in public code. Until it's set, leads aren't sent but booking still works.
+    ENDPOINT: 'https://api.web3forms.com/submit',
+    WEB3FORMS_KEY: '',
     // Calendly event for the 30-minute diagnosis call (7 to 10:30am Adelaide = US afternoons).
     BOOKING_URL: 'https://calendly.com/lemonlolly-au/30min',
     ADS_ID: 'AW-18373661137',
@@ -290,6 +292,7 @@
         (canCall ? '<p class="guar">If we take you on and miss the target we agree, every cent of our fee comes back. <a href="/guarantee">See the guarantee</a></p>' : '') +
         '<p class="small">We use these details to prepare your diagnosis. No spam, ever. <a href="/privacy" style="color:inherit">Privacy</a></p>' +
         '<p class="err" id="ferr" hidden></p>' +
+        '<input type="checkbox" id="f-trap" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px;width:1px;height:1px;opacity:0">' +
       '</form>' +
       '<div id="after"></div>' +
       '<p class="restart"><button type="button" class="linkbtn" id="redo">Retake the check-up</button></p>';
@@ -328,8 +331,10 @@
     var R = S.result, btn = document.getElementById('send');
     btn.disabled = true; btn.firstChild.textContent = 'Sending… ';
     var payload = {
-      _subject: 'Growth check-up: ' + biz + ' (' + R.pct + '/100, ' + limitArea + ')',
-      form: 'lemonlolly.vip growth check-up',
+      access_key: CONFIG.WEB3FORMS_KEY,
+      subject: 'Growth check-up: ' + biz + ' (' + R.pct + '/100, ' + limitArea + ')',
+      from_name: 'lemonlolly.vip growth check-up',
+      replyto: email,
       name: name, email: email, business: biz, website: web,
       growth_score: R.pct, band: BANDS[R.band].name, biggest_limit: limitArea,
       offered_call: canCall ? 'yes' : 'no (below revenue floor)',
@@ -339,8 +344,14 @@
     for (var k in ATTR) payload['src_' + k] = ATTR[k];
     S.lead = { name: name, email: email, biz: biz, web: web };
 
+    // Honeypot: bots fill the hidden field; pretend it worked and send nothing.
+    var trap = document.getElementById('f-trap');
+    if (trap && trap.checked) { afterLead(canCall, true, limitArea); return; }
+    if (!CONFIG.WEB3FORMS_KEY) { afterLead(canCall, false, limitArea); return; }
+
     fetch(CONFIG.ENDPOINT, { method: 'POST', headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' }, body: JSON.stringify(payload) })
-      .then(function (res) { if (!res.ok) throw new Error('send failed'); return res.json(); })
+      .then(function (res) { return res.json(); })
+      .then(function (d) { if (!d || !d.success) throw new Error('send failed'); })
       .then(function () { track('lead_submit', 'lead', { growth_score: R.pct }); afterLead(canCall, true, limitArea); })
       .catch(function () { afterLead(canCall, false, limitArea); });
   }
