@@ -12,11 +12,16 @@
     ENDPOINT: 'https://api.web3forms.com/submit',
     WEB3FORMS_KEY: '',
     // Calendly event for the 30-minute diagnosis call (7 to 10:30am Adelaide = US afternoons).
-    BOOKING_URL: 'https://calendly.com/lemonlolly-au/30min',
+    BOOKING_URL: 'https://calendly.com/lemonlolly-au/lemonlolly-diagnosis-call',
     ADS_ID: 'AW-18373661137',
-    // Paste each conversion label from Google Ads (the part after the slash). Empty = not sent.
-    CONVERSIONS: { start: '', complete: '', lead: '', booked: '' },
-    CURRENCY: 'USD',
+    // Google Ads conversion labels (www.lemonlolly.com.au account, all named "VIP - ..."). Empty = not sent.
+    CONVERSIONS: {
+      start: 'lrWMCPzbkbwdENGjn7lE',     // VIP - Check-up started (Page view)
+      complete: 'pPixCNjdj7wdENGjn7lE',  // VIP - Check-up completed (Submit lead form)
+      lead: '81W0CP7akbwdENGjn7lE',      // VIP - Diagnosis details submitted (Sign-up)
+      booked: 'wnF2CPnbkbwdENGjn7lE'     // VIP - Diagnosis call booked (Book appointment)
+    },
+    CURRENCY: 'AUD',
     // Revenue bands below this index are shown their score and offered the written diagnosis, not a call.
     // 0 = everyone gets a call; 1 = under $10k a month doesn't.
     REVENUE_FLOOR: 1,
