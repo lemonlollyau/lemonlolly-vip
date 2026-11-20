@@ -7,7 +7,7 @@
 
   /* ===== CONFIG: change these, nothing else needs touching ===== */
   var CONFIG = {
-    // Lead form: Web3Forms (free, 250 a month). Paste the access key emailed to hello@lemonlolly.com.au.
+    // Lead form: Web3Forms (free, 250 a month). Paste the access key emailed to indy@lemonlolly.com.au.
     // The key is safe to have in public code. Until it's set, leads aren't sent but booking still works.
     ENDPOINT: 'https://api.web3forms.com/submit',
     WEB3FORMS_KEY: '',
@@ -25,7 +25,7 @@
     // Revenue bands below this index are shown their score and offered the written diagnosis, not a call.
     // 0 = everyone gets a call; 1 = under $10k a month doesn't.
     REVENUE_FLOOR: 1,
-    CONTACT: 'hello@lemonlolly.com.au'
+    CONTACT: 'indy@lemonlolly.com.au'
   };
 
   /* ===== QUESTIONS ===== */
