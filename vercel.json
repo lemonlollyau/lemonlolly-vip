@@ -1,0 +1,7 @@
+{
+  "cleanUrls": true,
+  "trailingSlash": false,
+  "redirects": [
+    { "source": "/check-up", "destination": "/#checkup", "permanent": false }
+  ]
+}
